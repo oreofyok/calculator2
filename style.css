@@ -20,32 +20,34 @@ html, body #fullheight {
     justify-content: flex-end;
     align-items: flex-end;
     color: white;
-    height: 39%
+    height: 39% 
 }
 
-.result span {
-    margin-right: 60px;
+.result span {  
+    margin-right: 200px; /*controll result right and left the more more left */
     font-size: 50px;
     justify-self: flex-end;
 }
 
 .buttons {
-    width: 100%;
+    margin-left: 150px; /*make button right and left the more more right*/
+    width: 50%;
     height: 60%;
     background-color: black;
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    display: grid; /*make number button structure  */
+    grid-template-columns: 25% 25% 25% 25%; 
+    
 }
 
 .item {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 50px;
+    font-size: 40px;
     color: white;
-    border-radius: 100%;
-    width: 60px;
-    height: 60px;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
     padding: 10px;
     cursor: pointer;
     align-self: center;
@@ -68,7 +70,7 @@ html, body #fullheight {
     border: none;
 }
 
-.numbers, .coma {
+.numbers, .dot {
     background-color: #343434;
     border: none;
 }
@@ -79,9 +81,9 @@ html, body #fullheight {
 
 .itemZero {
     background-color: #343434;
-    width: 200px;
+    width: 70px;
     border-radius: 135px;
-    grid-column: span 2;
+    /*grid-column:span 2;*/
     border: none;
 }
 

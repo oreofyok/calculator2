@@ -1,6 +1,6 @@
 * {
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
 }
 
 html, body #fullheight {
@@ -20,23 +20,32 @@ html, body #fullheight {
     justify-content: flex-end;
     align-items: flex-end;
     color: white;
-    height: 39% 
+    height: 39% ;
+    background-color: lightseagreen;
+    border-radius: 50px;
+    width: 330px; 
+    margin-left: 22%;
+    margin-top: 10px;
+    padding: 10px 1px 10px 1px;/*top right bottom left*/
 }
 
 .result span {  
-    margin-right: 200px; /*controll result right and left the more more left */
+    margin-right: 20px; /*controll result right and left the more more left */
     font-size: 50px;
     justify-self: flex-end;
+   
 }
 
 .buttons {
-    margin-left: 150px; /*make button right and left the more more right*/
+    padding: 0px;
+    margin-top: 10px;
+    margin-left: 130px; /*make button right and left the more more right*/
     width: 50%;
     height: 60%;
     background-color: black;
     display: grid; /*make number button structure  */
     grid-template-columns: 25% 25% 25% 25%; 
-    
+    gap: .75rem; /*distance between button*/
 }
 
 .item {
@@ -83,7 +92,7 @@ html, body #fullheight {
     background-color: #343434;
     width: 70px;
     border-radius: 135px;
-    /*grid-column:span 2;*/
+    /*grid-column:span 2;*/ /*make numZero between 1 & 2 column*/ 
     border: none;
 }
 

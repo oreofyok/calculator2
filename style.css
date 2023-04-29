@@ -7,12 +7,19 @@ html, body #fullheight {
     min-height: 100% !important;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: black;
+    background-color: rgb(244, 237, 237);
+    
+}
+
+body {
+    display: flex; /*make right empty*/
+    justify-content: center;
 }
 
 .container {
     height: 100%;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    
 }
 
 .result {
@@ -24,7 +31,7 @@ html, body #fullheight {
     background-color: lightseagreen;
     border-radius: 50px;
     width: 330px; 
-    margin-left: 22%;
+    margin-left: 13%;
     margin-top: 10px;
     padding: 10px 1px 10px 1px;/*top right bottom left*/
 }
@@ -39,13 +46,14 @@ html, body #fullheight {
 .buttons {
     padding: 0px;
     margin-top: 10px;
-    margin-left: 130px; /*make button right and left the more more right*/
+    margin-left: 80px; /*make button right and left the more more right*/
     width: 50%;
     height: 60%;
-    background-color: black;
+    /*background-color: black;*/
     display: grid; /*make number button structure  */
-    grid-template-columns: 25% 25% 25% 25%; 
-    gap: .75rem; /*distance between button*/
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 20% 5% 20% 5% 20%; 
+    gap: 1.25rem; /*distance between button right left*/
 }
 
 .item {

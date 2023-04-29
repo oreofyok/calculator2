@@ -6,7 +6,7 @@ const clear = document.querySelector('.clear');
 const negative = document.querySelector('.negative');
 const percent = document.querySelector('.percent');
 const cancel = document.querySelector('.cancel');
-const dot =document.querySelector('.dot');
+//const dot =document.querySelector('.dot');
 
 let firstValue = "";
 let isFirstValue = false;
@@ -16,6 +16,7 @@ let sign = "";
 let resultValue = 0;
 let passEqual = false;
 let percenta = 0;
+let dotNow = false;
 
 
 for(let i = 0; i < numbers.length; i++) {
@@ -33,26 +34,46 @@ for(let i = 0; i < numbers.length; i++) {
 function getFirstValue(el) {
     
     result.innerHTML = "";
-    firstValue += el;
+    if(firstValue.includes('.') && el === '.'){
+        firstValue += "";
+    }
+    else if(firstValue.includes('.') && el != '.'){
+        firstValue += el;
+    }
+    else if(firstValue.includes('.')===false && el != ""){
+        firstValue += el;
+    }
+    //firstValue += el;
     
     firstValue = firstValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     result.innerHTML = firstValue;
     firstValue = firstValue.replace(/,/g,'');
-    firstValue = +firstValue //change firstValue to int
+    //firstValue = +firstValue //change firstValue to int
+    
 }
 
 function getSecondValue(el) {
     if(firstValue != "" && sign != "") {
-        secondValue += el;
-        
+        if(secondValue.includes('.') && el === '.'){
+            secondValue += "";
+        }
+        else if(secondValue.includes('.') && el != '.'){
+            secondValue += el;
+        }
+        else if(secondValue.includes('.')===false && el != ""){
+            secondValue += el;
+        }
+        //secondValue += el;
+    
         firstValue = firstValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         secondValue = secondValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    
         result.innerHTML = firstValue+sign+secondValue;
         
         firstValue = firstValue.replace(/,/g,'');
         secondValue = secondValue.replace(/,/g,'');
         firstValue = +firstValue;
-        secondValue = +secondValue; //change secondValue to int
+        //secondValue = +secondValue; //change secondValue to int
     }
     
 }
@@ -72,6 +93,7 @@ function getSign() {
             }
             else if(passEqual && firstValue != ""){
                 secondValue = "";
+                
                 
                 firstValue = firstValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 result.innerHTML = firstValue+sign;
@@ -98,12 +120,12 @@ getSign();
 equals.addEventListener('click',() => {
     result.innerHTML = "";
     if(sign === "+") {
-        resultValue = firstValue + +secondValue;
+        resultValue = +firstValue + +secondValue;
     }else if(sign === "-") {
-        resultValue = firstValue - secondValue;
+        resultValue = firstValue - +secondValue;
     }else if(sign === "x") {
         if(secondValue != ""){
-            resultValue = firstValue * secondValue;
+            resultValue = firstValue * +secondValue;
         }
         else if(secondValue === ""){
             resultValue = firstValue;
@@ -111,7 +133,7 @@ equals.addEventListener('click',() => {
         //resultValue = firstValue * secondValue;
     }else if(sign === "/") {
         if(secondValue != ""){
-            resultValue = firstValue / secondValue;
+            resultValue = firstValue / +secondValue;
         }
         else if(secondValue === ""){
             resultValue = firstValue;
@@ -119,23 +141,23 @@ equals.addEventListener('click',() => {
         //resultValue = firstValue / secondValue;
     }
     if(Number.isInteger(resultValue)){
-        resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        resultValue = resultValue
     }
     else if(Number.isInteger(resultValue) === false){
-        resultValue = resultValue;
+        resultValue = resultValue.toFixed(3);
     }
-    //resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
     result.innerHTML = resultValue;
-    resultValue = +resultValue;
-
+    //resultValue = resultValue.toFixed(3);
+    resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    result.innerHTML = resultValue;
+    resultValue = resultValue.replace(/,/g,'');
     firstValue = resultValue;
     secondValue = +secondValue; //press equal to same result
     
-    //secondValue = "";
-    //sign = "";
     passEqual = true;
-    checkResultLength();
+    //checkResultLength();
 })
 
 function checkResultLength() {
@@ -143,7 +165,7 @@ function checkResultLength() {
 
     if(resultValue.length >= 8) {
         resultValue = JSON.parse(resultValue);
-        result.innerHTML = resultValue.toFixed(2)+sign;
+        result.innerHTML = resultValue.toFixed(3)+sign;
     }
     
 }
@@ -166,9 +188,11 @@ percent.addEventListener('click',() => {
     result.innerHTML = "";
     if(firstValue != "" && secondValue != "" && sign === "+") {
         percenta = secondValue/100;
+        
         percenta = firstValue * percenta;
         resultValue = firstValue + percenta;
         
+        resultValue = resultValue.toFixed(3);
         firstValue = resultValue;
 
         resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -180,6 +204,8 @@ percent.addEventListener('click',() => {
         percenta = secondValue/100;
         percenta = firstValue * percenta;
         resultValue = firstValue - percenta;
+
+        resultValue = resultValue.toFixed(3);
         firstValue = resultValue;
 
         resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -190,6 +216,8 @@ percent.addEventListener('click',() => {
         percenta = secondValue/25;
         //percenta = firstValue * percenta;
         resultValue = firstValue / percenta;
+
+        resultValue = resultValue.toFixed(3);
         firstValue = resultValue;
 
         resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -200,6 +228,8 @@ percent.addEventListener('click',() => {
         percenta = secondValue/25;
         //percenta = firstValue * percenta;
         resultValue = firstValue * percenta;
+
+        resultValue = resultValue.toFixed(3);
         firstValue = resultValue;
 
         resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -208,13 +238,17 @@ percent.addEventListener('click',() => {
     }
     else if(firstValue != "") {
         resultValue = firstValue / 100;
+
+        resultValue = resultValue.toFixed(3);
         firstValue = resultValue;
 
         resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         result.innerHTML = resultValue;
         resultValue = resultValue.replace(/,/g,'');
     }
-    
+    else if(firstValue === ""){
+        result.innerHTML = 0;
+    }
 })
 
 clear.addEventListener('click',() => {
@@ -227,12 +261,19 @@ clear.addEventListener('click',() => {
     sign = "";
     resultValue = 0;
     passEqual = false;
+    dotNow = false;
 })
 
 cancel.addEventListener('click',() => {
     firstValue = firstValue.toString();
     if(firstValue != "" && firstValue.length > 1 && sign === ""){ // onlt first number
-        firstValue = firstValue.replace(/\d$/, '');
+        if(firstValue.slice(-1) === '.'){
+            firstValue = firstValue.replace('.','');
+        }
+        else if(firstValue.slice != '.'){
+            firstValue = firstValue.replace(/\d$/, '');
+        }
+        //firstValue = firstValue.replace(/\d$/, '');
         resultValue = firstValue;
         result.innerHTML = resultValue;
     }
@@ -242,12 +283,19 @@ cancel.addEventListener('click',() => {
     }
     else if(firstValue != "" && sign != "" && secondValue === ""){ // only first and sign
         sign = "";
+        isFirstValue = false;
         result.innerHTML = firstValue;
     }
     else if(firstValue != "" && sign != "" && secondValue != ""){ // all first, sign and second
         secondValue = secondValue.toString();
         if(secondValue.length > 1){ // second number len > 1
-            secondValue = secondValue.replace(/\d$/,'');
+            if(secondValue.slice(-1) === '.'){
+                secondValue = secondValue.replace('.','');
+            }
+            else if(secondValue.slice != '.'){
+                secondValue = secondValue.replace(/\d$/, '');
+            }
+            //secondValue = secondValue.replace(/\d$/,'');
             resultValue = secondValue;
             result.innerHTML = firstValue+sign+resultValue;
         }
@@ -256,7 +304,7 @@ cancel.addEventListener('click',() => {
             result.innerHTML = firstValue+sign;
         }
     }
-    firstValue = +firstValue;
+    //firstValue = +firstValue;
 })
 
 dot.addEventListener('click',() => {
@@ -267,40 +315,22 @@ dot.addEventListener('click',() => {
     }
     else if(firstValue != "" && sign === "") {
         
-        // if(Number.isInteger(firstValue)=== false){
-
-        //     resultValue = firstValue / 10;
-            
-
-        //     //resultValue = resultValue.toString();
-        //     var afterDot1 = resultValue.substr( resultValue.indexOf('.') + 1 );
-            
-        //     var afterDot2 = resultValue.substr( resultValue.indexOf('.') - 1 );
-        //     var lastnum2 = afterDot2.charAt(0);
-        //     resultValue = Math.floor(resultValue);
-        //     resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        //     result.innerHTML = resultValue+"."+afterDot1;
-        //     resultValue = resultValue.replace(/\d$/,'');
-        //     resultValue = +resultValue;
-        //     lastnum2 = +lastnum2;
-        //     afterDot2 = +afterDot2;
-        //     resultValue = resultValue+afterDot2+lastnum2;
-        //     firstValue = resultValue;
-        // }
-        
         
         resultValue = firstValue / 10;
+        
         resultValue = resultValue.toFixed(3);
+
         firstValue = resultValue;
         resultValue = resultValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         result.innerHTML = resultValue;
         resultValue = resultValue.replace(/\d$/,'');
-        
     }
     else if(firstValue === ""){
         resultValue = (+resultValue +0).toFixed(1);
+        
         result.innerHTML = resultValue;
         firstValue = resultValue;
     }
     
 })
+
